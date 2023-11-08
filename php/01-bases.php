@@ -346,6 +346,75 @@ function fibonacci(int $num): Generator {
 }
 
 echo '<br>';
-foreach (fibonacci(100) as $number) {
+foreach (fibonacci(10) as $number) {
   echo $number, ' ';
 }
+
+// Numeros pares con generador
+function obtenerPares(int $ini, int $fin): Generator {
+  for( $i =  $ini; $i <= $fin; $i++){
+    if($i % 2 === 0){
+      yield $i;
+    }
+  }
+}
+echo '<br>';
+foreach (obtenerPares(1, 50) as $number) {
+  echo $number, ' ';
+}
+
+//Ordenamiento burbuja
+function bubbleSort(array $array): array {
+  $count = count($array);
+  for($i = 0; $i < $count; $i++){
+    for($j = 0; $j < $count - $i - 1; $j++){
+      if($array[$j] > $array[$j + 1]){
+        $temp = $array[$j];
+        $array[$j] = $array[$j + 1];
+        $array[$j + 1] = $temp;
+      }
+    }
+  }
+  return $array;
+}
+
+$arrayNumeros = [32,3,4,55,22,12,34];
+
+echo '<br>';
+echo json_encode(bubbleSort($arrayNumeros));
+
+// Alterar arrays con array_map
+
+$personas = ['Juan', 'Pedro', 'Luis', 'Maria'];
+
+$nuevasPersonas = array_map(function($persona){
+  return $persona . ' Perez';
+}, $personas);
+
+echo '<br>';
+echo json_encode($nuevasPersonas);
+
+// Filtrar arrays con array_filter
+$productos = [
+  [
+    'nombre' => 'Laptop',
+    'precio' => 1000,
+  ],
+  [
+    'nombre' => 'Mouse',
+    'precio' => 20,
+  ],
+  [
+    'nombre' => 'Teclado',
+    'precio' => 50,
+  ],
+  [
+    'nombre' => 'Monitor',
+    'precio' => 500,
+  ],
+];
+
+$productosFiltrados = array_filter($productos, fn($producto) => $producto['precio'] === 500);
+
+echo '<br>';
+echo json_encode($productosFiltrados);
